@@ -1,0 +1,25 @@
+<html>
+
+<head>
+  <title>
+
+  </title>
+  <link rel='stylesheet' href='/stylesheets/style.css' />
+</head>
+
+<body>
+  <h1><a href='/'>Search</a></h1>
+  <div class="tabs">
+    <% for(var i = 0; i < tabs.length; i++) {%>
+      <div class="tab">
+        <div class="link">
+          <a target="_blank" href='<%=tabs[i].url%>'>
+            <%=tabs[i]._source.PageTitle%>
+          </a>
+        </div>
+      </div>
+      <% }%>
+  </div>
+</body>
+
+</html>

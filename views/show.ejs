@@ -1,0 +1,28 @@
+<html>
+
+<head>
+  <title>
+    
+  </title>
+  <link rel='stylesheet' href='/stylesheets/style.css' />
+</head>
+
+<body>
+  <h1><a href='/'>Tabs</a></h1>
+  <div class="tabs">
+    <% for(var i = 0; i < tabs.length; i++) {%>
+      <div class="tab">
+        <div class="link">
+          <a target="_blank" href='<%=tabs[i].url%>'>
+            <%=tabs[i].title%>
+          </a>
+        </div>
+        <div class="screeshot">
+          <img src='http://52.14.97.63:3000/img?url=<%=tabs[i].url%>' height="192px" width="256px">
+        </div>
+      </div>
+      <% }%>
+  </div>
+</body>
+
+</html>
