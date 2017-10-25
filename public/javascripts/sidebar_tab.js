@@ -40,6 +40,7 @@ Sidebar.prototype.getTabs = function(){
           beforeTime = page.DateTime; //생성시간을 이전 회차 생성시간에 저장
           $('.tabList').append('<div class="tabListItem" data-date = "'+page.DateTime+'"> <a class="item tabItem"><i class="'+colorArray[tapNum%13]+' paw icon"></i>'+(tapNum+1)+'</a><a class="ui item pageListItem transition hidden"></a></div>')
           tapNum++;
+          
           console.log(beforeTime)
         } else { //  이전회차의 생성시간과 같으면
           samePageTimeCnt++; //같은 회차 페이지수 증가
