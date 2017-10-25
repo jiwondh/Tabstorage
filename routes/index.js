@@ -14,16 +14,33 @@ module.exports = function(app) {
   var client = require('../connection.js');
   var fs = require('fs');
 
+  function getDateTime() {
+    var date = new Date();
+    var hour = date.getHours();
+    hour = (hour < 10 ? "0" : "") + hour;
+    var min = date.getMinutes();
+    min = (min < 10 ? "0" : "") + min;
+    var sec = date.getSeconds();
+    sec = (sec < 10 ? "0" : "") + sec;
+    var year = date.getFullYear();
+    var month = date.getMonth() + 1;
+    month = (month < 10 ? "0" : "") + month;
+    var day = date.getDate();
+    day = (day < 10 ? "0" : "") + day;
+
+    return year + ":" + month + ":" + day + ":" + hour + ":" + min + ":" + sec;
+  }
+
   /* GET users listing. */
   router.get('/', function(req, res, next) {
     client.search({
       index: 'tab',
       type: 'page',
       body: {
-        sort : "_score",
-        size : 10000,
+        sort: "_score",
+        size: 10000,
         query: {
-          match_all : {}
+          match_all: {}
         },
       }
     }, function(error, response, status) {
@@ -37,14 +54,12 @@ module.exports = function(app) {
         var total = response.hits.total;
         res.render('index', {
           title: '탭스토리지',
-          total : total
+          total: total
         });
       }
     });
   });
-  router.get('/ex', function(req, res, next) {
-    res.send('df')
-  });
+
 
   router.get('/show', function(req, res, next) {
     var sql = "SELECT * FROM tab";
@@ -61,6 +76,7 @@ module.exports = function(app) {
   });
 
   router.post('/pages', function(req, res, next) {
+    var dateTime = getDateTime();
     var tabs = req.body.pages;
     var length = tabs.length;
     console.log(tabs[0].url)
@@ -72,7 +88,8 @@ module.exports = function(app) {
         type: 'page',
         body: {
           "PageTitle": title,
-          "PageUrl": url
+          "PageUrl": url,
+          "DateTime": dateTime
         }
       }, function(err, resp, status) {
         console.log(resp);
@@ -88,13 +105,13 @@ module.exports = function(app) {
       index: 'tab',
       type: 'page',
       body: {
-        sort : "_score",
+        sort: "_score",
         query: {
           match: {
             "PageTitle": {
-              "query" : q,
+              "query": q,
               "operator": "or",
-              "minimum_should_match": 2,
+              "minimum_should_match": 1,
               "fuzziness": "AUTO"
             }
           }

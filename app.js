@@ -9,6 +9,7 @@ var app = express();
 
 var index = require('./routes/index.js')(app);
 var users = require('./routes/users.js')(app);
+var api = require('./routes/api.js')(app);
 //var practice = require('./routes/practice')(app);
 var screenshot = require('url-to-screenshot');
 var fs = require('fs');
@@ -43,6 +44,7 @@ app.use(express.static(path.join(__dirname, 'public')));
 
 app.use('/', index);
 app.use('/users', users);
+app.use('/api', api);
 //app.use('/practice', practice);
 
 // catch 404 and forward to error handler
