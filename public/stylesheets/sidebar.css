@@ -4,3 +4,7 @@
 .pageListItem{
   display: none !important;
 }
+
+.sidebarModal {
+  height: 300px;
+}
