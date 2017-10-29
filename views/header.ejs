@@ -23,10 +23,17 @@
         <a class="item"><i class="settings icon"></i> Account Settings</a>
       </div>
     </div>
-    <div class="item">
-      <button class="circular ui icon totalTab open button">
-        <%= total %>
+
+    <div class="item" ng-controller="TabListCtrl as tab">
+      <button ng-mouseenter="enter()" ng-mouseleave="leave()" class="circular ui icon totalTab open button">
+        <div class="ui shape">
+          <div class="sides">
+            <div class="active first side"><i class="heart icon"></i></div>
+            <div class="second side tabCnt" ><i class="asterisk loading icon"></i></div>
+          </div>
+        </div>
       </button>
     </div>
+
   </div>
 </div>

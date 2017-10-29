@@ -1,13 +1,16 @@
 <!DOCTYPE html>
-<html>
+<html ng-app="tabStorage">
 
 <head>
   <title>
     <%= title %>
   </title>
+
+  <script type="text/javascript" src="/javascripts/lib/angular.min.js"></script>
+  <script type="text/javascript" src="/javascripts/common/app.js"></script>
+
   <link rel='stylesheet' href='/stylesheets/style.css' />
   <link rel='stylesheet' href='/stylesheets/sidebar.css' />
-  <script src="/javascripts/angular.js"></script>
   <link rel="stylesheet" type="text/css" href="/semantic/dist/semantic.min.css">
   <link rel="shortcut icon" type="image/x-icon" href="/images/mini(48).png" />
   <script src="https://code.jquery.com/jquery-3.1.1.min.js" integrity="sha256-hVVnYaiADRTO2PzUGmuLJr8BLUSjGIZsDYGmIJLv2b8=" crossorigin="anonymous"></script>
@@ -22,12 +25,18 @@
     <% include sidebar %>
   </header>
   <main>
+
+    <div ng-controller="UserController as user">
+      <h1>{{user.info.name}}</h1>
+      <h2>{{user.info.age}}</h2>
+      <p>{{user.info.description}}</p>
+      {{user.cnt}}
+      <button ng-show="user.info.showing"> 보인다! </button>
+    </div>
+
     <div ng-app="myApp">
       <p>Name : <input type="text" ng-model="name"></p>
       <h1>Hello {{name}}</h1>
-      <div ng-controller="myCtrl">
-        <button ng-click="click()">Click me</button>
-      </div>
     </div>
   </main>
   <footer>

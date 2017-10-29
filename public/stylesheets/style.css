@@ -17,3 +17,7 @@ a {
 .hide{
   display: none !important;
 }
+
+.totalTab .icon{
+  margin : 0px;
+}

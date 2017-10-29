@@ -31,8 +31,7 @@ module.exports = function(app) {
     return year + ":" + month + ":" + day + ":" + hour + ":" + min + ":" + sec;
   }
 
-  /* GET users listing. */
-  router.get('/', function(req, res, next) {
+  function homeCtrl(req, res) {
     client.search({
       index: 'tab',
       type: 'page',
@@ -47,10 +46,12 @@ module.exports = function(app) {
       if (error) {
         console.log("search error: " + error)
       } else {
+        /*
         console.log("--- Response ---");
         console.log(response);
         console.log("--- Hits ---");
         console.log(response.hits.hits)
+        */
         var total = response.hits.total;
         res.render('index', {
           title: '탭스토리지',
@@ -58,24 +59,9 @@ module.exports = function(app) {
         });
       }
     });
-  });
+  }
 
-
-  router.get('/show', function(req, res, next) {
-    var sql = "SELECT * FROM tab";
-
-    conn.query(sql, function(error, results, fields) {
-      if (error) {
-        console.log(error);
-      } else {
-        res.render('show', {
-          tabs: results
-        });
-      }
-    });
-  });
-
-  router.post('/pages', function(req, res, next) {
+  function saveTabs(req, res) {
     var dateTime = getDateTime();
     var tabs = req.body.pages;
     var length = tabs.length;
@@ -95,7 +81,25 @@ module.exports = function(app) {
         console.log(resp);
       });
     }
-    res.end('{"success" : "Updated Successfully", "status" : 200}');
+    //res.end('{"success" : "Updated Successfully", "status" : 200}');
+  }
+  /* GET users listing. */
+  router.get('/', homeCtrl);
+
+  router.post('/pages', saveTabs);
+
+  router.get('/show', function(req, res, next) {
+    var sql = "SELECT * FROM tab";
+
+    conn.query(sql, function(error, results, fields) {
+      if (error) {
+        console.log(error);
+      } else {
+        res.render('show', {
+          tabs: results
+        });
+      }
+    });
   });
 
   router.get('/search', function(req, res, next) {
